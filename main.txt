@@ -1,0 +1,91 @@
+Подключить репозиторий: https://flathub.org/repo/flathub.flatpakrepo
+sudo dnf update
+
+Минимальный набор. Ищем в магазине по имени пакета:
+chrome/chromium (не flatpak!)
+menulibre (не flatpak!)
+sudo dnf install gnome-tweak-tool - терминал
+gnome-extensions-app (от команды GNOME)
+video-downloader
+sudo dnf install uget - терминал
+transmission
+telegram
+skype
+geary/thunderbird
+bleachbit
+sudo dnf install gnome-shell-extension-dash-to-dock - терминал
+sublime
+zoom
+mattermost
+
+*Enpass:
+sudo cd /etc/yum.repos.d/
+sudo wget https://yum.enpass.io/enpass-yum.repo
+sudo yum install enpass
+
+
+Расширения:
+https://extensions.gnome.org/extension/19/user-themes/
+https://extensions.gnome.org/extension/3193/blur-my-shell/
+https://extensions.gnome.org/extension/1007/window-is-ready-notification-remover/
+https://extensions.gnome.org/extension/2890/tray-icons-reloaded/
+https://extensions.gnome.org/extension/4269/alphabetical-app-grid/
+https://extensions.gnome.org/extension/3628/arcmenu/
+https://extensions.gnome.org/extension/4085/big-sur-status-area/
+https://extensions.gnome.org/extension/2236/night-theme-switcher/
+https://extensions.gnome.org/extension/3843/just-perfection/
+
+Тема и иконки:
+https://github.com/vinceliuice/WhiteSur-gtk-theme
+https://github.com/vinceliuice/WhiteSur-icon-theme
+Установка:
+Тема: sudo ./install.sh -l -m -N mojave && sudo ./tweaks.sh -f && sudo ./tweaks.sh -g && sudo ./tweaks.sh -d && sudo ./tweaks.sh -F
+Иконки: sudo ./install.sh -b
+
+Курсоры:
+https://github.com/ful1e5/apple_cursor/releases/download/v1.2.3/macOSBigSur.tar.gz
+Установка: sudo tar -xvf macOSBigSur.tar.gz && sudo mv macOSBigSur /usr/share/icons/
+
+Обои:
+https://github.com/vinceliuice/WhiteSur-wallpapers
+Установка: sudo ./install-gnome-backgrounds.sh && sudo ./install-wallpapers.sh
+
+Шрифты:
+https://disk.yandex.ru/d/JNYVlrTPIa5ThQ
+Установка: sudo tar -xvf sfpro.tar.xz && sudo mv sfpro /usr/share/fonts/truetype
+
+GDM: Пакет gdm из магазина, выбрать тему, мышь, шрифт
+
+Горизонт:
+sudo dnf install python3.9 && python3.9 -m venv env && sudo -s
+source env/bin/activate
+chmod +x VMware-Horizon-Client-2111-8.4.0-18957622.x64.bundle && ./VMware-Horizon-Client-2111-8.4.0-18957622.x64.bundle
+*Удаление:
+./VMware-Horizon-Client-2111-8.4.0-18957622.x64.bundle -u vmware-horizon-client
+
+Чистка пунктов:
+rpm -q kernel-core
+
+Ядро LQX:
+sudo dnf copr enable rmnscnce/kernel-lqx -y
+sudo dnf install kernel-lqx -y
+sudo dnf install kernel-lqx-headers
+sudo dnf install kernel-lqx-modules
+
+Тема GRUB:
+https://github.com/AdisonCavani/distro-grub-themes
+https://github.com/vinceliuice/grub2-themes
+sudo mkdir /boot/grub2/themes
+sudo cp -r <theme_name>/ /boot/grub2/themes
+sudo nano /etc/default/grub
+#GRUB_TERMINAL_OUTPUT=console
+GRUB_GFXMODE=1920x1080
+GRUB_THEME="/boot/grub2/themes/fedora/theme.txt"
+sudo grub2-mkconfig -o /etc/grub2.cfg
+
+Бут:
+https://github.com/navisjayaseelan/apple-mac-plymouth
+sudo dnf install plymouth-plugin-script && sudo ./install.sh && sudo plymouth-set-default-theme apple-mac-plymouth -R
+
+https://github.com/sngvy/wdd_gnome
+https://github.com/sngvy/xlayout-switcher
