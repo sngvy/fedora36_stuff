@@ -1,4 +1,7 @@
-Подключить репозиторий: https://flathub.org/repo/flathub.flatpakrepo
+Fedora 37
+
+
+Подключить FlatHub: https://flathub.org/repo/flathub.flatpakrepo
 sudo dnf update
 
 Минимальный набор. Ищем в магазине по имени пакета:
@@ -13,12 +16,11 @@ telegram
 skype
 geary/thunderbird
 bleachbit
-sudo dnf install gnome-shell-extension-dash-to-dock - терминал
 sublime
 zoom
 mattermost
 
-*Enpass:
+Enpass:
 sudo cd /etc/yum.repos.d/
 sudo wget https://yum.enpass.io/enpass-yum.repo
 sudo yum install enpass
@@ -34,13 +36,18 @@ https://extensions.gnome.org/extension/3628/arcmenu/
 https://extensions.gnome.org/extension/4085/big-sur-status-area/
 https://extensions.gnome.org/extension/2236/night-theme-switcher/
 https://extensions.gnome.org/extension/3843/just-perfection/
+https://extensions.gnome.org/extension/307/dash-to-dock/
 
 Тема и иконки:
 https://github.com/vinceliuice/WhiteSur-gtk-theme
 https://github.com/vinceliuice/WhiteSur-icon-theme
 Установка:
-Тема: sudo ./install.sh -l -m -N mojave && sudo ./tweaks.sh -f && sudo ./tweaks.sh -g && sudo ./tweaks.sh -d && sudo ./tweaks.sh -F
+Тема: sudo ./install.sh -m -N glassy && sudo ./tweaks.sh -g && sudo ./tweaks.sh -d && sudo ./tweaks.sh -f && sudo ./tweaks.sh -F && sudo flatpak override --filesystem=xdg-config/gtk-4.0
+Если не интересует Firefox: sudo ./install.sh -m -N glassy && sudo ./tweaks.sh -g && sudo ./tweaks.sh -d && sudo ./tweaks.sh -F && sudo flatpak override --filesystem=xdg-config/gtk-4.0
 Иконки: sudo ./install.sh -b
+Альтернативный вариант иконок: https://github.com/vinceliuice/Colloid-icon-theme (sudo ./install.sh)
+Удаление:
+sudo rm -rf /usr/share/icons/Colloid && sudo rm -rf /usr/share/icons/Colloid-dark
 
 Курсоры:
 https://github.com/ful1e5/apple_cursor/releases/download/v1.2.3/macOSBigSur.tar.gz
@@ -52,21 +59,18 @@ https://github.com/vinceliuice/WhiteSur-wallpapers
 
 Шрифты:
 https://disk.yandex.ru/d/JNYVlrTPIa5ThQ
-Установка: sudo tar -xvf sfpro.tar.xz && sudo mv sfpro /usr/share/fonts/truetype
+Установка: sudo tar -xvf sfpro.tar.xz && sudo mv sfpro /usr/share/fonts/truetype, далее настроить в gnome-tweak-tool
 
-GDM: Пакет gdm из магазина, выбрать тему, мышь, шрифт
+GDM: Пакет gdm из магазина, выбрать тему, мышь, шрифт. После нажатия Apply снова повторить установку темы
 
 Горизонт:
 sudo dnf install python3.9 && python3.9 -m venv env && sudo -s
 source env/bin/activate
 chmod +x VMware-Horizon-Client-2111-8.4.0-18957622.x64.bundle && ./VMware-Horizon-Client-2111-8.4.0-18957622.x64.bundle
-*Удаление:
+Удаление:
 ./VMware-Horizon-Client-2111-8.4.0-18957622.x64.bundle -u vmware-horizon-client
 
-Чистка пунктов:
-rpm -q kernel-core
-
-Ядро LQX:
+Ядро LQX (по желанию):
 sudo dnf copr enable rmnscnce/kernel-lqx -y
 sudo dnf install kernel-lqx -y
 sudo dnf install kernel-lqx-headers
@@ -75,17 +79,28 @@ sudo dnf install kernel-lqx-modules
 Тема GRUB:
 https://github.com/AdisonCavani/distro-grub-themes
 https://github.com/vinceliuice/grub2-themes
+Для первой темы:
 sudo mkdir /boot/grub2/themes
 sudo cp -r <theme_name>/ /boot/grub2/themes
 sudo nano /etc/default/grub
 #GRUB_TERMINAL_OUTPUT=console
 GRUB_GFXMODE=1920x1080
-GRUB_THEME="/boot/grub2/themes/fedora/theme.txt"
+GRUB_THEME="/boot/grub2/themes/<theme_name>/theme.txt"
 sudo grub2-mkconfig -o /etc/grub2.cfg
+Для второй:
+sudo ./install.sh -t whitesur
 
 Бут:
 https://github.com/navisjayaseelan/apple-mac-plymouth
 sudo dnf install plymouth-plugin-script && sudo ./install.sh && sudo plymouth-set-default-theme apple-mac-plymouth -R
 
+Дополнительно:
 https://github.com/sngvy/wdd_gnome
 https://github.com/sngvy/xlayout-switcher
+
+Драйвер NVIDIA:
+sudo dnf install --nogpgcheck https://download1.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm https://download1.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm
+sudo dnf install gcc kernel-headers kernel-devel akmod-nvidia-390xx xorg-x11-drv-nvidia-390xx xorg-x11-drv-nvidia-390xx-libs nvidia-settings-390xx && sudo akmods --force && sleep 180 && sudo dracut --force
+
+Обновление с NVIDIA:
+sudo dnf update && sudo dnf reinstall gcc kernel-headers kernel-devel akmod-nvidia-390xx xorg-x11-drv-nvidia-390xx xorg-x11-drv-nvidia-390xx-libs nvidia-settings-390xx && sudo grub2-mkconfig && sudo akmods --force && sleep 180 && sudo dracut --force
