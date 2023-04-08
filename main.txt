@@ -1,30 +1,30 @@
-Fedora 37
+Fedora 38
 
 
 Подключить FlatHub: https://flathub.org/repo/flathub.flatpakrepo
+
 sudo dnf update
 
 Минимальный набор. Ищем в магазине по имени пакета:
-chrome/chromium (не flatpak!)
-menulibre (не flatpak!)
-sudo dnf install gnome-tweak-tool - терминал
-gnome-extensions-app (от команды GNOME)
+chrome/chromium
+menulibre
+gnome-tweak-tool - терминал
+gnome-extensions-app
 video-downloader
-sudo dnf install uget - терминал
+uget
 transmission
 telegram
 skype
-geary/thunderbird
+thunderbird
 bleachbit
 sublime
 zoom
-mattermost
+vivaldi
 
 Enpass:
 sudo cd /etc/yum.repos.d/
 sudo wget https://yum.enpass.io/enpass-yum.repo
 sudo yum install enpass
-
 
 Расширения:
 https://extensions.gnome.org/extension/19/user-themes/
@@ -41,32 +41,49 @@ https://extensions.gnome.org/extension/307/dash-to-dock/
 Тема и иконки:
 https://github.com/vinceliuice/WhiteSur-gtk-theme
 https://github.com/vinceliuice/WhiteSur-icon-theme
+
 Установка:
-Тема: sudo ./install.sh -m -N glassy && sudo ./tweaks.sh -g && sudo ./tweaks.sh -d && sudo ./tweaks.sh -f && sudo ./tweaks.sh -F && sudo flatpak override --filesystem=xdg-config/gtk-4.0
-Если не интересует Firefox: sudo ./install.sh -m -N glassy && sudo ./tweaks.sh -g && sudo ./tweaks.sh -d && sudo ./tweaks.sh -F && sudo flatpak override --filesystem=xdg-config/gtk-4.0
-Иконки: sudo ./install.sh -b
+sudo ./install.sh -m -N glassy && sudo ./tweaks.sh -g && sudo ./tweaks.sh -d && sudo ./tweaks.sh -f && sudo ./tweaks.sh -F && sudo flatpak override --filesystem=xdg-config/gtk-4.0
+
+Если не интересует Firefox:
+sudo ./install.sh -m -N glassy && sudo ./tweaks.sh -g && sudo ./tweaks.sh -d && sudo ./tweaks.sh -F && sudo flatpak override --filesystem=xdg-config/gtk-4.0
+
+Иконки:
+sudo ./install.sh -b
+
 Альтернативный вариант иконок: https://github.com/vinceliuice/Colloid-icon-theme (sudo ./install.sh)
+
 Удаление:
 sudo rm -rf /usr/share/icons/Colloid && sudo rm -rf /usr/share/icons/Colloid-dark
 
 Курсоры:
 https://github.com/ful1e5/apple_cursor/releases/download/v1.2.3/macOSBigSur.tar.gz
-Установка: sudo tar -xvf macOSBigSur.tar.gz && sudo mv macOSBigSur /usr/share/icons/
+
+Установка:
+sudo tar -xvf macOSBigSur.tar.gz && sudo mv macOSBigSur /usr/share/icons/
 
 Обои:
 https://github.com/vinceliuice/WhiteSur-wallpapers
-Установка: sudo ./install-gnome-backgrounds.sh && sudo ./install-wallpapers.sh
+
+Установка:
+sudo ./install-gnome-backgrounds.sh && sudo ./install-wallpapers.sh
 
 Шрифты:
 https://disk.yandex.ru/d/JNYVlrTPIa5ThQ
-Установка: sudo tar -xvf sfpro.tar.xz && sudo mv sfpro /usr/share/fonts/truetype, далее настроить в gnome-tweak-tool
 
-GDM: Пакет gdm из магазина, выбрать тему, мышь, шрифт. После нажатия Apply снова повторить установку темы
+Установка:
+sudo tar -xvf sfpro.tar.xz && sudo mv sfpro /usr/share/fonts/truetype
 
-Горизонт:
+*Далее настроить в gnome-tweak-tool
+
+GDM:
+Пакет gdm из магазина, выбрать тему, иконки, мышь, шрифт. После нажатия Apply снова повторить установку темы командой выше
+
+VMware Horizon:
 sudo dnf install python3.9 && python3.9 -m venv env && sudo -s
 source env/bin/activate
 chmod +x VMware-Horizon-Client-2111-8.4.0-18957622.x64.bundle && ./VMware-Horizon-Client-2111-8.4.0-18957622.x64.bundle
+
 Удаление:
 ./VMware-Horizon-Client-2111-8.4.0-18957622.x64.bundle -u vmware-horizon-client
 
@@ -79,28 +96,49 @@ sudo dnf install kernel-lqx-modules
 Тема GRUB:
 https://github.com/AdisonCavani/distro-grub-themes
 https://github.com/vinceliuice/grub2-themes
-Для первой темы:
+
+Установка первой темы:
 sudo mkdir /boot/grub2/themes
 sudo cp -r <theme_name>/ /boot/grub2/themes
 sudo nano /etc/default/grub
+
+Далее добавить:
 #GRUB_TERMINAL_OUTPUT=console
 GRUB_GFXMODE=1920x1080
 GRUB_THEME="/boot/grub2/themes/<theme_name>/theme.txt"
+
 sudo grub2-mkconfig -o /etc/grub2.cfg
-Для второй:
+
+Установка второй темы:
 sudo ./install.sh -t whitesur
 
-Бут:
-https://github.com/navisjayaseelan/apple-mac-plymouth
-sudo dnf install plymouth-plugin-script && sudo ./install.sh && sudo plymouth-set-default-theme apple-mac-plymouth -R
+Plymouth:
+https://github.com/sngvy/apple-mac-plymouth
+
+Установка:
+sudo tar -xvf apple-mac-plymouth.tar && sudo install.sh && sudo plymouth-set-default-theme apple-mac-plymouth -R
 
 Дополнительно:
 https://github.com/sngvy/wdd_gnome
+
+
 https://github.com/sngvy/xlayout-switcher
 
 Драйвер NVIDIA:
 sudo dnf install --nogpgcheck https://download1.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm https://download1.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm
 sudo dnf install gcc kernel-headers kernel-devel akmod-nvidia-390xx xorg-x11-drv-nvidia-390xx xorg-x11-drv-nvidia-390xx-libs nvidia-settings-390xx && sudo akmods --force && sleep 180 && sudo dracut --force
 
-Обновление с NVIDIA:
+Обновление с драйверами NVIDIA:
 sudo dnf update && sudo dnf reinstall gcc kernel-headers kernel-devel akmod-nvidia-390xx xorg-x11-drv-nvidia-390xx xorg-x11-drv-nvidia-390xx-libs nvidia-settings-390xx && sudo grub2-mkconfig && sudo akmods --force && sleep 180 && sudo dracut --force
+
+*Если карта свежая, то удаляем 390xx из всех команд
+
+Чиним квадраты вместо заставки на UEFI:
+sudo touch /etc/modprobe.d/nvidia.conf && echo "options nvidia_drm modeset=1" >> /etc/modprobe.d/nvidia.conf && sudo touch /etc/dracut.conf.d/nvidia.conf && sudo nano /etc/dracut.conf.d/nvidia.conf
+
+Далее добавить:
+add_drivers+=" nvidia nvidia_modeset nvidia_uvm nvidia_drm "
+install_items+=" /etc/modprobe.d/nvidia.conf "
+
+dracut -f
+reboot
